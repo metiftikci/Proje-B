@@ -30,13 +30,15 @@ def send_sms_mutlucell(username, password, originator, message, numbers):
     url = "https://smsgw.mutlucell.com/smsgw-ws/sndblkex"
 
     xml = '''<?xml version="1.0" encoding="UTF-8"?>
-<smspack ka="{}" pwd="{}" org="{}" />
+<smspack ka="{}" pwd="{}" org="{}">
     <mesaj>
         <metin>{}</metin>
         <nums>{}</nums>
     </mesaj>
-</smspack>'''.format(username, password, originator, message, numbers.join(''))
+</smspack>'''.format(username, password, originator, message, ",".join(numbers))
 
-    headers = { 'Content-Type': 'application/xml' }
+    headers = { 'Content-Type': 'text/xml; charset=utf-8' }
 
-    requests.post(url, data=xml, headers=headers)
+    response = requests.post(url, data=xml, headers=headers)
+
+    return response.text

@@ -1,3 +1,8 @@
+DATABASE_FILE_NAME = "data/database.csv"
+DATABASE_INDEX_NAME = 0
+DATABASE_INDEX_EMAIL_ADDRESS = 1
+DATABASE_INDEX_PHONE_NO = 2
+
 STMP_HOST = "smtp-mail.outlook.com"
 SMTP_PORT = 587
 EMAIL_ADDRESS = "muhammedtiftikci@outlook.com"
