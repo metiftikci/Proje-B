@@ -1,4 +1,5 @@
 # pip install speechrecognition
+# pip install pocketsphinx
 # pip install pyaudio
 
 import speech_recognition as sr
@@ -13,6 +14,6 @@ with sr.Microphone() as mic:
     print("Time over, thanks.")
 
 try:
-    print("Text: " + r.recognize_google(audio, language="tr-TR"))
+    print("Text: " + r.recognize_sphinx(audio))
 except Exception as ex:
     print(ex.message)
