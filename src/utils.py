@@ -14,6 +14,13 @@ def read_csv(filename):
 
         return result
 
+def get_data_from_api(url):
+    response = requests.get(url)
+
+    print(response.json())
+
+    return [[x["adSoyad"].encode("utf-8"), x["email"], x["telefon"]] for x in response.json()]
+
 
 def send_mail(host, port, from_addr, password, to_addr, subject, body):
     server = smtplib.SMTP(host, port)
