@@ -9,7 +9,7 @@ import speech_recognition as sr
 def listen():
     r = sr.Recognizer()
 
-    with sr.Microphone() as mic:
+    with sr.Microphone(device_index=2) as mic:
         print("Dinleniyor...")
 
         audio = r.listen(mic)
@@ -17,8 +17,8 @@ def listen():
         print("Dinleme işlemi tamamlandı.")
 
     try:
-        text = r.recognize_google(audio, language="tr-TR").encode("utf-8")
-        print("Dinlenen ses: " + text)
+        text = r.recognize_google(audio, language="tr-TR")
+        print("Dinlenen ses: ", text)
 
         return text
     except Exception as ex:

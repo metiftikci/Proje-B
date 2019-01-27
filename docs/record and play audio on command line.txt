@@ -1,0 +1,12 @@
+arecord -l
+arecord --device=plughw:1,0 --format S16_LE --rate 44100 -c1 test.wav
+aplay -l
+aplay --device=plughw:0,1 test.wav
+
+
+import pyaudio
+
+p = pyaudio.PyAudio()
+
+p.get_device_count()
+p.get_device_info_by_index(number)
