@@ -3,10 +3,11 @@ DATABASE_INDEX_NAME = 0
 DATABASE_INDEX_EMAIL_ADDRESS = 1
 DATABASE_INDEX_PHONE_NO = 2
 
-WEBAPI_URL = "http://10.201.1.187:37001/api/data"
-WEBAPI_URL_ALARM = "http://10.201.1.187:37001/api/alarm"
-WEBAPI_URL_ALARM_DISABLE = "http://10.201.1.187:37001/api/disablealarm"
-WEBAPI_URL_ALARM_ENABLE = "http://10.201.1.187:37001/api/enablealarm"
+WEBAPI_IP = "192.168.1.16:37001"
+WEBAPI_URL = "http://" + WEBAPI_IP + "/api/data"
+WEBAPI_URL_ALARM = "http://" + WEBAPI_IP + "/api/alarm"
+WEBAPI_URL_ALARM_DISABLE = "http://" + WEBAPI_IP + "/api/disablealarm"
+WEBAPI_URL_ALARM_ENABLE = "http://" + WEBAPI_IP + "/api/enablealarm"
 
 EMAIL_API_STMP_HOST = "smtp-mail.outlook.com"
 EMAIL_API_SMTP_PORT = 587
