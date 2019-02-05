@@ -10,7 +10,7 @@ def listen():
     r = sr.Recognizer()
 
     with sr.Microphone(device_index=2) as mic:
-        print("Dinleniyor...")
+        print("Ortam dinleniyor...")
 
         audio = r.listen(mic)
 
@@ -18,9 +18,11 @@ def listen():
 
     try:
         text = r.recognize_google(audio, language="tr-TR")
-        print("Dinlenen ses: ", text)
+        print("Dinlenen ses: " + text)
 
-        return text
+        return text.decode('utf-8')
+    except sr.UnknownValueError as ex:
+	return ""
     except Exception as ex:
         print("Hata olustu: ", ex)
 

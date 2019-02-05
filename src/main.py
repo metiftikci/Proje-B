@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # import RPi.GPIO as GPIO
+import os
 import settings
 import utils
 import speech_utils
@@ -14,6 +15,8 @@ import time
 
 #persons = utils.read_csv(settings.DATABASE_FILE_NAME)
 
+os.system('clear')
+
 persons = utils.get_data_from_api(settings.WEBAPI_URL)
 print("Kayıtlı Kişiler")
 print(persons)
@@ -22,7 +25,9 @@ print(persons)
 while True:
     sesler = speech_utils.listen()
 
-    if "test" in sesler.split(" "):
+    if sesler == '':
+	print("(Ses yok)")
+    elif "test" in sesler.split(" "):
         r_enable = requests.get(settings.WEBAPI_URL_ALARM_ENABLE)
         print(r_enable)
 
@@ -43,13 +48,13 @@ while True:
 
         # Make alarm high
         alarm_is_on = True
-        
+
         while alarm_is_on:
             alarm_is_on = requests.get(settings.WEBAPI_URL_ALARM).json()
             print("Alarm: ", alarm_is_on)
-            
+
             # GPIO.output(PIN_BUZZER, GPIO.HIGH)
-            
+
             time.sleep(1)
-            
+
         # GPIO.output(PIN_BUZZER, GPIO.LOW)
