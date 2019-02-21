@@ -1,0 +1,14 @@
+D:\Projects\Proje-B\src\WebApi\bin\Debug\netcoreapp2.2\WebApi.deps.json
+D:\Projects\Proje-B\src\WebApi\bin\Debug\netcoreapp2.2\WebApi.runtimeconfig.json
+D:\Projects\Proje-B\src\WebApi\bin\Debug\netcoreapp2.2\WebApi.runtimeconfig.dev.json
+D:\Projects\Proje-B\src\WebApi\bin\Debug\netcoreapp2.2\WebApi.dll
+D:\Projects\Proje-B\src\WebApi\bin\Debug\netcoreapp2.2\WebApi.pdb
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.csprojAssemblyReference.cache
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.csproj.CoreCompileInputs.cache
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.RazorAssemblyInfo.cache
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.RazorAssemblyInfo.cs
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.AssemblyInfoInputs.cache
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.AssemblyInfo.cs
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.RazorTargetAssemblyInfo.cache
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.dll
+D:\Projects\Proje-B\src\WebApi\obj\Debug\netcoreapp2.2\WebApi.pdb
