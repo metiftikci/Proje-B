@@ -1,6 +1,7 @@
 import csv
 import requests
 import smtplib
+import settings
 
 
 def read_csv(filename):
@@ -14,13 +15,36 @@ def read_csv(filename):
 
         return result
 
-def get_data_from_api(url):
-    response = requests.get(url)
+def get_teachers_from_api():
+    response = requests.get(settings.WEBAPI_URL_TEACHER)
 
-    print(response.json())
+    teachers = []
 
-    return [[x["adSoyad"].encode("utf-8"), x["email"], x["telefon"]] for x in response.json()]
+    for x in response.json():
+        teacher = {
+            "fullName": x["adSoyad"].encode("utf-8"),
+            "email": x["email"],
+            "phoneNumber": x["telefon"]
+        }
 
+        teachers.append(teacher)
+
+    return teachers
+
+def get_raspberry_from_api():
+    id = settings.RASPBERRY_ID
+
+    response = requests.get(settings.WEBAPI_URL_RASPBERRY.format(str(id)))
+
+    print("Response", response.json())
+
+    return response.json()
+
+def get_raspberry_name_from_api():
+    return get_raspberry_from_api()["name"]
+
+def get_raspberry_status_from_api():
+    return get_raspberry_from_api()["status"]
 
 def send_mail(host, port, from_addr, password, to_addr, subject, body):
     server = smtplib.SMTP(host, port)

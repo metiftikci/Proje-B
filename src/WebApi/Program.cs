@@ -7,13 +7,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using WebApi.Infrastructure;
 
 namespace WebApi
 {
     public class Program
     {
-        public static bool ALARM_IS_ACTIVE = false;
-
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
@@ -22,6 +21,6 @@ namespace WebApi
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://192.168.1.16:37001");
+                .UseUrls(Settings.API_URL);
     }
 }
