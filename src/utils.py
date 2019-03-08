@@ -2,6 +2,7 @@ import csv
 import requests
 import smtplib
 import settings
+import json
 
 
 def read_csv(filename):
@@ -40,13 +41,16 @@ def get_raspberry_from_api():
 
     return response.json()
 
-def set_raspberry_status_from_api(status):
+def set_raspberry_status_from_api(status, data):
     id = str(settings.RASPBERRY_ID)
     status = str(status)
+    
+    headers = {'Content-Type': "application/json", 'Accept': "application/json"}
 
-    response = requests.put(settings.WEBAPI_URL_RASPBERRY_SET_STATUS.format(id, status))
+    response = requests.put(settings.WEBAPI_URL_RASPBERRY_SET_STATUS.format(id, status), headers=headers, json=str(data))
 
-    print("Set Raspberry Status as {}: {}".format(status, response.ok))
+    if not response.ok:
+        print("Set Raspberry Status as {}: {} {}".format(status, response.ok, response.reason))
     
     return response.ok
 
