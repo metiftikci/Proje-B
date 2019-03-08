@@ -9,7 +9,7 @@ import speech_recognition as sr
 def listen():
     r = sr.Recognizer()
 
-    with sr.Microphone() as mic:
+    with sr.Microphone(device_index=2) as mic:
         print("Dinleniyor...")
 
         audio = r.listen(mic)

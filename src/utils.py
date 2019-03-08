@@ -32,13 +32,23 @@ def get_teachers_from_api():
     return teachers
 
 def get_raspberry_from_api():
-    id = settings.RASPBERRY_ID
+    id = str(settings.RASPBERRY_ID)
 
-    response = requests.get(settings.WEBAPI_URL_RASPBERRY.format(str(id)))
+    response = requests.get(settings.WEBAPI_URL_RASPBERRY_GET.format(id))
 
     print("Response", response.json())
 
     return response.json()
+
+def set_raspberry_status_from_api(status):
+    id = str(settings.RASPBERRY_ID)
+    status = str(status)
+
+    response = requests.put(settings.WEBAPI_URL_RASPBERRY_SET_STATUS.format(id, status))
+
+    print("Set Raspberry Status as {}: {}".format(status, response.ok))
+    
+    return response.ok
 
 def get_raspberry_name_from_api():
     return get_raspberry_from_api()["name"]

@@ -26,7 +26,12 @@ while True:
 
     if settings.DANGEROUS_WORD in sesler.split(" "):
         print("========== Alert! ==========")
-
+        
+        if not utils.set_raspberry_status_from_api(2):
+            print("Sunucuda raspberry durumu ayarlanamadi!!!")
+            
+            break
+            
         subject = "Raspberry PI3"
         body = "Alert!"
 
