@@ -12,6 +12,9 @@ teachers = utils.get_teachers_from_api()
 print("Kayıtlı Kişiler")
 print(teachers)
 
+raspberry_name = utils.get_raspberry_name_from_api()
+print("Raspberry Name: {}".format(raspberry_name))
+
 while True:
     alarm_status = utils.get_raspberry_status_from_api()
 
@@ -42,13 +45,15 @@ while True:
             person_email_address = person["email"]
             person_phone_no = person["phoneNumber"]
 
+            body = "{} alarm activated! Data: {}".format(raspberry_name, sesler)
+
             if person_email_address != None:
                 print("Sent email to {}".format(person_name))
                 # utils.send_mail(settings.EMAIL_API_STMP_HOST, settings.EMAIL_API_STMP_HOST, settings.EMAIL_API_EMAIL_ADDRESS, settings.EMAIL_API_EMAIL_PASSWORD, person_email_address, subject, body)
 
             if person_phone_no != None:
                 print("Sent sms to {}".format(person_name))
-                # utils.send_sms_mutlucell(settings.SMS_API_USERNAME, settings.SMS_API_PASSWORD, settings.SMS_API_ORIGINATOR, body, [person_phone_no])
+                utils.send_sms_mutlucell(settings.SMS_API_USERNAME, settings.SMS_API_PASSWORD, settings.SMS_API_ORIGINATOR, body, [person_phone_no])
 
         # Make alarm high
         # 0: System Stopped
