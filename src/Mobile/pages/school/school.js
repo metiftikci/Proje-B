@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Database from '../../data/database'
 
 
@@ -12,12 +12,16 @@ export default class SchoolPage extends Component {
         super();
 
         this.state = {
-            raspberries: []
+            loading: true,
+            raspberries: [],
         };
 
         this.load = this.load.bind(this);
 
+        // Sürekli veriyi kontrol edip güncellemesi için.
         this.timer = setInterval(this.load, 5000);
+
+        this.goToLogPage = this.goToLogPage.bind(this);
     }
 
     load() {
@@ -31,7 +35,7 @@ export default class SchoolPage extends Component {
                     return;
                 }
 
-                this.setState({ raspberries: x });
+                this.setState({ loading: false, raspberries: x });
             })
             .catch(x => console.error(x));
     }
@@ -49,6 +53,10 @@ export default class SchoolPage extends Component {
                 this.setState({ raspberries });
             })
             .catch(x => console.error(x));
+    }
+
+    goToLogPage(raspberryId) {
+        this.props.navigation.navigate("Log", { raspberryId: raspberryId });
     }
 
     renderCard(item, index) {
@@ -75,6 +83,11 @@ export default class SchoolPage extends Component {
         return (
             <View key={index.toString()} style={styles.raspberry}>
                 <Text style={styles.title}>{item.name}</Text>
+                <View style={styles.rowButtonLog}>
+                    <TouchableOpacity onPress={() => this.goToLogPage(item.id)} style={styles.buttonLog}>
+                        <Text style={styles.labelButtonLog}>Kayıtlar</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.buttons}>
                     {
                         item.status == 0
@@ -89,9 +102,20 @@ export default class SchoolPage extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator />
+                </View>
+            );
+        }
+
         return (
             <View style={styles.wrapper}>
                 <ScrollView>
+                    <TouchableOpacity onPress={() => this.goToLogPage("")} style={styles.buttonAllLogs}>
+                        <Text style={styles.labelAllLogsText}>Tüm Kayıtlar</Text>
+                    </TouchableOpacity>
                     {this.state.raspberries.map((x, i) => this.renderCard(x, i))}
                 </ScrollView>
             </View>
@@ -103,6 +127,15 @@ const styles = StyleSheet.create({
     wrapper: {
         marginTop: StatusBar.currentHeight,
         padding: 10,
+    },
+    buttonAllLogs: {
+        marginBottom: 10,
+        padding: 10,
+        backgroundColor: '#33E3FF',
+    },
+    labelAllLogsText: {
+        textAlign: 'center',
+        fontSize: 18,
     },
     raspberry: {
         borderWidth: 1,
@@ -121,7 +154,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     buttonText: {
-        padding: 5,
+        padding: 10,
         // height: 40,
         textAlign: 'center',
         color: 'white',
@@ -139,5 +172,16 @@ const styles = StyleSheet.create({
     buttonYellow: {
         backgroundColor: '#00FFFF',
         color: 'black'
+    },
+    rowButtonLog: {
+        marginBottom: 5,
+        padding: 10,
+    },
+    buttonLog: {
+        backgroundColor: '#eeeeee',
+    },
+    labelButtonLog: {
+        margin: 10,
+        textAlign: 'center'
     }
 });

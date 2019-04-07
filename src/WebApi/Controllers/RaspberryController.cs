@@ -30,7 +30,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}/status/{status}")]
-        public ActionResult Update(int id, Status status)
+        public ActionResult Update(int id, Status status, [FromBody] string additionalData)
         {
             DatabaseContext ctx = new DatabaseContext();
             
@@ -46,7 +46,8 @@ namespace WebApi.Controllers
             Log log = new Log()
             {
                 RaspberryId = raspberry.Id,
-                Status = status
+                Status = status,
+                AdditionalData = additionalData
             };
 
             ctx.Logs.Add(log);
