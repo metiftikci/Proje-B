@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
-using WebApi.Infrastructure;
-using WebApi.Models;
+using WebSite.Infrastructure;
+using WebSite.Models;
 
-namespace WebApi.Database
+namespace WebSite.Database
 {
     public class DatabaseContext : DbContext
     {

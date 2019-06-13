@@ -1,0 +1,27 @@
+@model IEnumerable<WebSite.Models.User>
+
+<a asp-action="Create">Ekle</a>
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>İsim</th>
+        <th>Soyisim</th>
+        <th>Kullanıcı Adı</th>
+        <th></th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Name</td>
+            <td>@user.Surname</td>
+            <td>@user.Username</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@user.Id">Düzenle</a>
+                -
+                <a class="text-danger" asp-action="Delete" asp-route-id="@user.Id">Sil</a>
+            </td>
+        </tr>
+    }
+</table>

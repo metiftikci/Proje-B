@@ -1,0 +1,25 @@
+@model IEnumerable<WebSite.Models.Log>
+
+@{
+    ViewData["Title"] = "Log Kayıtları";
+}
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Raspberry Id</th>
+        <th>Açıklama</th>
+        <th>Durum</th>
+        <th>Tarih</th>
+    </tr>
+    @foreach(var log in Model)
+    {
+        <tr>
+            <td>@log.Id</td>
+            <td>@log.RaspberryId</td>
+            <td>@log.AdditionalData</td>
+            <td>@log.Status.ToString()</td>
+            <td>@log.CreatedDate</td>
+        </tr>
+    }
+</table>

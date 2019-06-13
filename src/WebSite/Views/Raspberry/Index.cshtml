@@ -1,0 +1,23 @@
+@model IEnumerable<WebSite.Models.Raspberry>
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>İsim</th>
+        <th>Durum</th>
+        <th></th>
+    </tr>
+    @foreach (var raspberry in Model)
+    {
+        <tr>
+            <td>@raspberry.Id</td>
+            <td>@raspberry.Name</td>
+            <td>@raspberry.Status.ToString()</td>
+            <td>
+                <a asp-controller="Log" asp-action="Index" asp-route-raspberryId="@raspberry.Id">Log</a>
+                -
+                <a asp-action="Edit" asp-route-id="@raspberry.Id">Düzenle</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,71 +1,69 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Database, { Settings } from '../../data/database'
+import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Database from '../../data/database';
 
-export default class ConnectPage extends Component {
+export default class LoginPage extends Component {
     static navigationOptions = {
-        header: null
+        title: "Login"
     }
-    
-    constructor() {
-        super();
+
+    constructor(props) {
+        super(props);
 
         this.state = {
-            host: Settings.API_HOST,
-            port: Settings.API_PORT
-        };
+            username: '',
+            password: ''
+        }
 
         this.onPress = this.onPress.bind(this);
     }
 
     onPress() {
-        const { state } = this;
-
-        Settings.API_HOST = state.host;
-        Settings.API_PORT = state.port;
-
         const db = new Database();
 
-        db.teachers()
+        db.login(this.state.username, this.state.password)
             .then(x => {
-                if (x != null) {
-                    console.log(x);
-
-                    this.props.navigation.navigate('Login');
+                if (x) {
+                    this.props.navigation.navigate('School');
+                } else {
+                    Alert.alert("Bir sorun oluştu.");
                 }
             })
-            .catch(x => console.error(x));
+            .catch(x => {
+                Alert("Hata");
+            })
     }
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <Text style={styles.title}>Raspberry Pi</Text>
                 <View style={styles.inputs}>
                     <View style={styles.inputRow}>
-                        <Text style={styles.label}>Host:</Text>
+                        <Text style={styles.label}>Kullanıcı Adı:</Text>
                         <TextInput
                             style={styles.input}
-                            value={this.state.host}
-                            onChangeText={(text) => this.setState({ host: text })}
+                            value={this.state.username}
+                            onChangeText={(text) => this.setState({ username: text })}
                         />
                     </View>
                     <View style={styles.inputRow}>
-                        <Text style={styles.label}>Port:</Text>
+                        <Text style={styles.label}>Şifre:</Text>
                         <TextInput
                             style={styles.input}
-                            value={this.state.port}
-                            onChangeText={(text) => this.setState({ port: text })}
+                            value={this.state.password}
+                            onChangeText={(text) => this.setState({ password: text })}
                         />
                     </View>
                 </View>
                 <TouchableOpacity style={styles.button} onPress={this.onPress}>
-                    <Text style={styles.buttonText}>Başla</Text>
+                    <Text style={styles.buttonText}>Giriş Yap</Text>
                 </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {

@@ -1,5 +1,5 @@
 export class Settings {
-    static API_HOST = "192.168.1.17";
+    static API_HOST = "192.168.1.15";
     static API_PORT = "37001";
 }
 
@@ -28,6 +28,26 @@ export default class Database {
         return null;
     }
 
+    async login(username, password) {
+        const url = `http://${Settings.API_HOST}:${Settings.API_PORT}/api/login`;
+
+        const data = {
+            username: username,
+            password: password
+        };
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        return response.ok;
+    }
+    
     async updateRaspberry(raspberryId, status) {
         const url = `http://${Settings.API_HOST}:${Settings.API_PORT}/api/raspberry/${raspberryId}/status/${status}`;
 

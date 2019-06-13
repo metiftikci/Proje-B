@@ -16,6 +16,7 @@ namespace WebApi.Controllers
         {
             using (DatabaseContext context = new DatabaseContext())
             {
+                var users = context.Users.ToList();
                 if (raspberryId.HasValue)
                 {
                     return context.Logs.Include(x => x.Raspberry).Where(x => x.RaspberryId == raspberryId.Value).ToList();
