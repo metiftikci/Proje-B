@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import RPi.GPIO as GPIO
 import settings
 import utils
 import speech_utils
 import requests
 import time
+
+GPIO.setmode(GPIO.BOARD)
+
+GPIO.setup(40, GPIO.OUT)
 
 #persons = utils.read_csv(settings.DATABASE_FILE_NAME)
 
@@ -26,12 +31,12 @@ while True:
 
     if settings.DANGEROUS_WORD in sesler.split(" "):
         print("========== Alert! ==========")
-        
+
         if not utils.set_raspberry_status_from_api(2, sesler):
             print("Sunucuda raspberry durumu ayarlanamadi!!!")
-            
+
             break
-            
+
         subject = "Raspberry PI3"
         body = "Alert!"
 
@@ -57,8 +62,13 @@ while True:
         status = [ "System Stopped", "System Started (Listening)", "Alarm Activated" ]
         alarm_status = 2
 
+	GPIO.output(40, GPIO.HIGH)
+
         while alarm_status == 2:
             alarm_status = utils.get_raspberry_status_from_api()
             print("Alarm Status: ", status[alarm_status])
 
             time.sleep(1)
+
+	GPIO.output(40, GPIO.LOW)
+
